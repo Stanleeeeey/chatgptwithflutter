@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Ask();
+    Ask("What year is it");
     return MaterialApp(
       title: 'chatgpt conversation',
       theme: ThemeData(
@@ -50,8 +50,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int x = 0;
-
+  final TextEditingController questionController = TextEditingController();
+  String _x = "hej";
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -74,38 +74,73 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text("your conv with chatgpt"),
+        backgroundColor: Colors.grey[850],
+        title: Text("your conversation with chatgpt"),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'your question',
-                suffixIcon:
-                    IconButton(onPressed: () {}, icon: Icon(Icons.send)),
+        child: Container(
+          color: Colors.grey[700],
+          child: Column(
+            // Column is also a layout widget. It takes a list of children and
+            // arranges them vertically. By default, it sizes itself to fit its
+            // children horizontally, and tries to be as tall as its parent.
+            //
+            // Invoke "debug painting" (press "p" in the console, choose the
+            // "Toggle Debug Paint" action from the Flutter Inspector in Android
+            // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+            // to see the wireframe for each widget.
+            //
+            // Column has various properties to control how it sizes itself and
+            // how it positions its children. Here we use mainAxisAlignment to
+            // center the children vertically; the main axis here is the vertical
+            // axis because Columns are vertical (the cross axis would be
+            // horizontal).
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
+                color: Colors.grey[800],
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                        _x,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: questionController,
+                  obscureText: false,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey[800],
+                    border: OutlineInputBorder(),
+                    labelText: 'your question',
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          Ask(questionController.text).then((String result) {
+                            setState(() {
+                              _x = result;
+                            });
+                          });
+                        },
+                        icon: Icon(Icons.send)),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

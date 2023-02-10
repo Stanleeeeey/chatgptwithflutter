@@ -38,6 +38,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.5
   curl_generator: ^0.0.11
+  dotenv: ^4.1.0
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -91,3 +93,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+assets:
+  - .env
